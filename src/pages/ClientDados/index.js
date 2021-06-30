@@ -5,7 +5,6 @@ import { Button } from '@material-ui/core';
 
 import api from '../../helpers/api'
 import ClientForm from '../../components/Form/ClientForm';
-import EditClientForm from '../../components/Form/EditClientForm';
 
 import { Container, Row, Col } from 'react-grid';
 

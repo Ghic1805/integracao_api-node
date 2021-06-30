@@ -5,8 +5,6 @@ import { Titulo } from './styled';
 
 import api from '../../helpers/api'
 import MainTable from '../../components/Table/MainTable';
-import ClientForm from '../../components/Form/ClientForm';
-import EditClientForm from '../../components/Form/EditClientForm';
 
 import { Container, Row, Col } from 'react-grid';
 import { Button } from '@material-ui/core';

@@ -23,6 +23,18 @@ const StyledTableCell = withStyles((theme) => ({
     },
 }))(TableCell);
 
+const StyledTableCellAction = withStyles((theme) => ({
+    head: {
+        backgroundColor: theme.palette.common.black,
+        color: theme.palette.common.white,
+        width: 100
+    },
+    body: {
+        fontSize: 14,
+        width: 100
+    },
+}))(TableCell);
+
 const StyledTableRow = withStyles((theme) => ({
     root: {
         '&:nth-of-type(odd)': {
@@ -99,7 +111,7 @@ function MainTable(props) {
                         <StyledTableCell align="left">CPF/CNPJ</StyledTableCell>
                         <StyledTableCell align="left">CEP</StyledTableCell>
                         <StyledTableCell align="left">Endereço</StyledTableCell>
-                        <StyledTableCell align="center">Ações</StyledTableCell>
+                        <StyledTableCellAction align="center">Ações</StyledTableCellAction>
                     </TableRow>
                 </TableHead>
                 <TableBody>

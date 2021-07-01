@@ -52,7 +52,7 @@ const ClientForm = () => {
         }
     };
     return (
-            <div style={{}}>
+            <Container>
                 <Titulo>{newUser ? 'Cadastrar' : 'Editar'} de Clientes</Titulo>
 
                 <label className="area">
@@ -68,7 +68,7 @@ const ClientForm = () => {
                 </label>
                 <label className="area">
                     <div className="area--title">Tipo Pessoa</div>
-                    <select value={tipo_pessoa} onChange={e => setTipo_pessoa(e.target.value)} require>
+                    <select value={tipo_pessoa} onChange={e => setTipo_pessoa(e.target.value)}>
                         <option>Selecionar</option>
                         <option value="Física">Física</option>
                         <option value="Jurídica">Jurídica</option>
@@ -110,7 +110,7 @@ const ClientForm = () => {
 
                 </label>
 
-            </div>
+            </Container>
     );
 }
 export default ClientForm;

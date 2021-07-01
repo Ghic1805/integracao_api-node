@@ -11,6 +11,7 @@ import Poduct from './pages/Product';
 import Client from './pages/Client';
 import Proposta from './pages/Proposta';
 import ClientDados from './pages/ClientDados';
+import ProductDados from './pages/ProductDados';
 
 export default () => {
     const name = useSelector(state => state.user.name);
@@ -34,6 +35,9 @@ export default () => {
                         </Route>
                         <Route path="/product">
                             <Poduct />
+                        </Route>
+                        <Route path="/product-dados">
+                            <ProductDados />
                         </Route>
                         <Route path="/client">
                             <Client />

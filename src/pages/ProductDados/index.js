@@ -3,8 +3,8 @@ import { useHistory, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
 import { Button } from '@material-ui/core';
 
-import api from '../../helpers/api'
-import ClientForm from '../../components/Form/ClientForm';
+import productApi from '../../helpers/productApi'
+import ProductForm from '../../components/Form/ProductForm';
 
 import { Container, Row, Col } from 'react-grid';
 
@@ -12,24 +12,24 @@ export default () => {
     const history = useHistory();
     const dispatch = useDispatch();
 
-    const [clients, setClients] = useState([]);
+    const [products, setProducts] = useState([]);
 
-    const getClients = async () => {
-        const res = await api.getClients();
+    const getProducts = async () => {
+        const res = await productApi.getProducts();
         if (res.error === '') {
-            setClients(res.result);
+            setProducts(res.result);
         }
     };
 
     useEffect(() => {
-        getClients();
+        getProducts();
     }, []);
 
     return (
         <Container>
             <Row>
                 <Col style={{ position: "static" }}>
-                    <ClientForm></ClientForm>
+                    <ProductForm></ProductForm>
                 </Col>
 
             </Row>

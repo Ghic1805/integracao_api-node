@@ -35,7 +35,7 @@ export default () => {
             </Row>
             <Row style={{ marginTop: "25px" }}>
                 <Col style={{ position: "static" }}>
-                    <Button onClick={() => history.push('/client')} style={{ border: "2px solid #000", borderRadius: "5px", marginTop: "25px", margin: "0px" }}>Voltar</Button>
+                    <Button variant="outlined" color="primary" onClick={() => history.push('/client')} style={{ textTransform: "none", marginTop: "25px", margin: "0px" }}>Voltar</Button>
                 </Col>
             </Row>
         </Container>

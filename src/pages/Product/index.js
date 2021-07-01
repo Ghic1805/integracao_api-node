@@ -38,7 +38,7 @@ export default () => {
                     <Titulo>Produto</Titulo>
                 </Col>
                 <Col style={{ position: "static", display: "flex", justifyContent: "flex-end", alignItems: "flex-end", marginLeft: "0px" }}>
-                    <Button onClick={() => history.push({pathname: '/product-dados', state: {create: true, dados: false}})} style={{ border: "2px solid #000", borderRadius: "5px", marginTop: "25px", margin: "0px" }}>Novo Produto</Button>
+                    <Button variant="contained" color="primary" onClick={() => history.push({pathname: '/product-dados', state: {create: true, dados: false}})} style={{ textTransform: "none",marginTop: "25px", margin: "0px" }}>Novo Produto</Button>
                 </Col>
             </Row>
             <ProductTable reset={reset} data={products} />

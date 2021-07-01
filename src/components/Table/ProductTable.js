@@ -108,8 +108,8 @@ function ProductTable(props) {
                     <TableRow>
                         <StyledTableCell align="left">Descrição</StyledTableCell>
                         <StyledTableCell align="left">Descritivo</StyledTableCell>
-                        <StyledTableCell align="left">Valor de Venda</StyledTableCell>
-                        <StyledTableCell align="left">Tipo</StyledTableCell>
+                        <StyledTableCell align="right">Valor de Venda</StyledTableCell>
+                        <StyledTableCell align="center">Tipo</StyledTableCell>
                         <StyledTableCell align="left">Forma de Comercialização</StyledTableCell>
                         <StyledTableCellAction align="center">Ações</StyledTableCellAction>
                     </TableRow>
@@ -119,8 +119,8 @@ function ProductTable(props) {
                         <StyledTableRow key={dados}>
                             <StyledTableCell align="left">{dados.descricao}</StyledTableCell>
                             <StyledTableCell align="left">{dados.descritivo}</StyledTableCell>
-                            <StyledTableCell align="left">{dados.valor_de_venda}</StyledTableCell>
-                            <StyledTableCell align="left">{dados.tipo}</StyledTableCell>
+                            <StyledTableCell align="right">{dados.valor_de_venda}</StyledTableCell>
+                            <StyledTableCell align="center">{dados.tipo}</StyledTableCell>
                             <StyledTableCell align="left">{dados.forma_de_comercializacao}</StyledTableCell>
                             <StyledTableCell align="center" className={classes.acoesIcons} >
                                 <AiFillEdit onClick={()=>openEdit(dados)} className={classes.icons} />

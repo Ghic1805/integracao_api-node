@@ -115,7 +115,7 @@ const ClientForm = () => {
             </Row>
             <Row>
                 <Col className={classes.root}>
-                    <TextField id="standard-basic" label="CNPJ" value={cpf_cnpj} onChange={e => setCpf_cnpj(e.target.value)} />
+                    <TextField id="standard-basic" label="CNPJ/CPF" value={cpf_cnpj} onChange={e => setCpf_cnpj(e.target.value)} />
                 </Col>
             </Row>
             <Row >

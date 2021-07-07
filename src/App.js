@@ -12,6 +12,7 @@ import Client from './pages/Client';
 import Proposta from './pages/Proposta';
 import ClientDados from './pages/ClientDados';
 import ProductDados from './pages/ProductDados';
+import PropostaDados from './pages/PropostaDados';
 
 export default () => {
     const name = useSelector(state => state.user.name);
@@ -47,6 +48,9 @@ export default () => {
                         </Route>
                         <Route path="/proposta">
                             <Proposta />
+                        </Route>
+                        <Route path="/proposta-dados">
+                            <PropostaDados />
                         </Route>
                     </Switch>
                 </PageBody>/

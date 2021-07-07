@@ -10,7 +10,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { AiFillEdit, AiTwotoneDelete } from "react-icons/ai";
 import { useHistory } from 'react-router-dom';
-import productApi from '../../helpers/productApi'
+import propostaApi from '../../helpers/propostaApi'
 
 
 const StyledTableCell = withStyles((theme) => ({
@@ -45,7 +45,7 @@ const StyledTableRow = withStyles((theme) => ({
 
 
 
-function ProductTable(props) {
+function PropostaTable(props) {
     const history = useHistory()
 
     // const [edit, setEdit] = useState(false);
@@ -65,7 +65,7 @@ function ProductTable(props) {
             width: "100%",
 
         },
-        productTable: {
+        propostaTable: {
             marginTop: 25
         },
         icons: {
@@ -86,14 +86,14 @@ function ProductTable(props) {
 
     const classes = useStyles();
 
-    const openEdit = (dados) =>{
-        history.push({pathname: '/product-dados', state: {create: false, dados}})
+    const openEdit = (dados) => {
+        history.push({ pathname: '/proposta-dados', state: { create: false, dados } })
     };
 
-    
-    const delProduct = async (dados) => {
+
+    const delProposta = async (dados) => {
         //console.log(dados)
-        const res = await productApi.deleteProduct(dados.id);
+        const res = await propostaApi.deleteProposta(dados.id);
         if (res.error === '') {
             props.reset();
         }
@@ -102,36 +102,39 @@ function ProductTable(props) {
 
 
     return (
-        <TableContainer className={classes.productTable} component={Paper}>
+        <TableContainer className={classes.propostaTable} component={Paper}>
             <Table className={classes.table} aria-label="customized table">
                 <TableHead>
                     <TableRow>
-                        <StyledTableCell align="left">Descrição</StyledTableCell>
-                        <StyledTableCell align="left">Descritivo</StyledTableCell>
-                        <StyledTableCell align="right">Valor de Venda</StyledTableCell>
-                        <StyledTableCell align="center">Tipo</StyledTableCell>
-                        <StyledTableCell align="left">Forma de Comercialização</StyledTableCell>
+                        <StyledTableCell align="left">Código</StyledTableCell>
+                        <StyledTableCell align="left">Assunto</StyledTableCell>
+                        <StyledTableCell align="center">Data</StyledTableCell>
+                        <StyledTableCell align="center">Data de Validade</StyledTableCell>
+                        <StyledTableCell align="center">Nome do Cliente</StyledTableCell>
                         <StyledTableCellAction align="center">Ações</StyledTableCellAction>
                     </TableRow>
                 </TableHead>
                 <TableBody>
                     {props.data.map((dados) => (
+                        
                         <StyledTableRow key={dados}>
-                            <StyledTableCell align="left">{dados.descricao}</StyledTableCell>
-                            <StyledTableCell align="left">{dados.descritivo}</StyledTableCell>
-                            <StyledTableCell align="right">R$ {dados.valor_de_venda}</StyledTableCell>
-                            <StyledTableCell align="center">{dados.tipo}</StyledTableCell>
-                            <StyledTableCell align="left">{dados.forma_de_comercializacao}</StyledTableCell>
+                            <StyledTableCell align="left">{dados.codigo}</StyledTableCell>
+                            <StyledTableCell align="left">{dados.assunto}</StyledTableCell>
+                            <StyledTableCell align="center">{dados.data}</StyledTableCell>
+                            <StyledTableCell align="center">{dados.data_validade}</StyledTableCell>
+                            <StyledTableCell align="center">{dados.nome}</StyledTableCell>
+
                             <StyledTableCell align="center" className={classes.acoesIcons} >
-                                <AiFillEdit onClick={()=>openEdit(dados)} className={classes.icons} />
-                                <AiTwotoneDelete onClick={()=>delProduct(dados)} className={classes.icons} />
+                                <AiFillEdit onClick={() => openEdit(dados)} className={classes.icons} />
+                                <AiTwotoneDelete onClick={() => delProposta(dados)} className={classes.icons} />
                             </StyledTableCell>
                         </StyledTableRow>
                     ))}
+                    {console.log(props.data)}
                 </TableBody>
             </Table>
         </TableContainer>
     );
 }
 
-export default ProductTable;
+export default PropostaTable;

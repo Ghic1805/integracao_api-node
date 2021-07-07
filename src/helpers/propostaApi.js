@@ -28,7 +28,7 @@ const apiFetchPut = async (endpoint, body) => {
     });
     const json = await res.json();
     if(json.notallowed) {
-        window.localtion.href = `/client/${body.id}`;
+        window.localtion.href = `/proposta/${body.id}`;
         return;
     }
     return json;
@@ -44,53 +44,53 @@ const apiFetchDelete = async (endpoint, body) => {
     });
     const json = await res.json();
     if(json.notallowed) {
-        window.localtion.href = `/client/${body.id}`;
+        window.localtion.href = `/proposta/${body.id}`;
         return;
     }
     return json;
 }
 
 export default {
-    getClients : async () => {
-        const res = await fetch(BASEAPI+'/clients');
+    getProposta : async () => {
+        const res = await fetch(BASEAPI+'/propostas');
         const json = await res.json();
         return json;
     },
-    
-    addClient:async (nome, tipo_pessoa, cpf_cnpj, cep, endereco) => {
+    addProposta:async (codigo, assunto, data, data_validade, id_client) => {
         const json = await apiFetchPost(
-            '/client',
+            '/proposta',
             {
-                nome,
-                tipo_pessoa,
-                cpf_cnpj,
-                cep,
-                endereco
+                codigo,
+                assunto,
+                data,
+                data_validade,
+                id_client
             }
         );
         return json;
     },
-    editClient:async (id, nome, tipo_pessoa, cpf_cnpj, cep, endereco) => {
+    editProposta:async (id, codigo, assunto, data, data_validade, id_client) => {
+        console.log(id, codigo, assunto, data, data_validade, id_client)
         const json = await apiFetchPut(
-            `/client/${id}`,
+            `/proposta/${id}`,
             {
                 id,
-                nome,
-                tipo_pessoa,
-                cpf_cnpj,
-                cep,
-                endereco
+                codigo,
+                assunto,
+                data,
+                data_validade,
+                id_client
             }
         );
         return json;
     },
-    deleteClient:async (id) => {
+    deleteProposta:async (id) => {
         const json = await apiFetchDelete(
-            `/client/${id}`,
+            `/proposta/${id}`,
             {id}
         );
         return json;
-    },
+    }
     
     
 };

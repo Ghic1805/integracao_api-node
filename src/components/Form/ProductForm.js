@@ -77,6 +77,7 @@ const ProductForm = () => {
 
         if (json.error) {
             setError(json.error);
+            alert("Preencha todos os campos");
         } else {
             window.location.href = '/product';
         }
@@ -133,7 +134,7 @@ const ProductForm = () => {
             </Row>
             <Row>
                 <Col className={classes.root}>
-                    <TextField id="standard-basic" label="Valor de Venda" value={valor_de_venda} onChange={e => setValor_de_venda(e.target.value)} />
+                    <TextField helperText="Exemplo: 9999.99"id="standard-basic" label="Valor de Venda" value={valor_de_venda} onChange={e => setValor_de_venda(e.target.value)} />
                 </Col>
             </Row>
             <Row >

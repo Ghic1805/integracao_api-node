@@ -1,19 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
-import { Titulo } from './styled';
+import { Button } from '@material-ui/core';
 
+import api from '../../helpers/api'
 import propostaApi from '../../helpers/propostaApi'
-import PropostaTable from '../../components/Table/PropostaTable';
+import PropostaForm from '../../components/Form/PropostaForm';
 
 import { Container, Row, Col } from 'react-grid';
-import { Button } from '@material-ui/core';
 
 export default () => {
     const history = useHistory();
     const dispatch = useDispatch();
 
     const [proposta, setProposta] = useState([]);
+    const [clients, setClients] = useState([]);
 
     const getProposta = async () => {
         const res = await propostaApi.getProposta();
@@ -21,30 +22,33 @@ export default () => {
             setProposta(res.result);
         }
     };
-    
+
+    const getClients = async () => {
+        const cli = await api.getClients();
+        if (cli.error === '') {
+            setClients(cli.result);
+        }
+    };
 
     useEffect(() => {
         getProposta();
+        getClients();
     }, []);
-
-
-    const reset = () => {
-        getProposta();
-    };
-
+    
 
     return (
         <Container>
             <Row>
                 <Col style={{ position: "static" }}>
-                    <Titulo>Proposta</Titulo>
+                    <PropostaForm client={clients} data={proposta}></PropostaForm>                    
                 </Col>
-                <Col style={{ position: "static", display: "flex", justifyContent: "flex-end", alignItems: "flex-end", marginLeft: "0px" }}>
-                    <Button variant="contained" color="primary" onClick={() => history.push({pathname: '/proposta-dados', state: {create: true, dados: false}})} style={{ textTransform: "none",marginTop: "25px", margin: "0px" }}>Nova Proposta</Button>
+
+            </Row>
+            <Row style={{ marginTop: "25px" }}>
+                <Col style={{ position: "static" }}>
+                    <Button variant="outlined" color="primary" onClick={() => history.push('/proposta')} style={{ textTransform: "none", marginTop: "25px", margin: "0px" }}>Voltar</Button>
                 </Col>
             </Row>
-            <PropostaTable reset={reset} data={proposta} />
-
         </Container>
     );
 }

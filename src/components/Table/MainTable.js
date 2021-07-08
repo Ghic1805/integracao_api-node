@@ -10,7 +10,8 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { AiFillEdit, AiTwotoneDelete } from "react-icons/ai";
 import { useHistory } from 'react-router-dom';
-import api from '../../helpers/api'
+import api from '../../helpers/api';
+import util from '../../util/util'
 
 
 const StyledTableCell = withStyles((theme) => ({
@@ -86,52 +87,54 @@ function MainTable(props) {
 
     const classes = useStyles();
 
-    const openEdit = (dados) =>{
-        history.push({pathname: '/client-dados', state: {create: false, dados}})
+    const openEdit = (dados) => {
+        history.push({ pathname: '/client-dados', state: { create: false, dados } })
     };
 
-    
+
     const delClient = async (dados) => {
         //console.log(dados)
+        if (window.confirm('Deletar o item?')) { 
         const res = await api.deleteClient(dados.id);
         if (res.error === '') {
             props.reset();
         }
-    };
+    }
+};
 
 
 
-    return (
-        <TableContainer className={classes.mainTable} component={Paper}>
-            <Table className={classes.table} aria-label="customized table">
-                <TableHead>
-                    <TableRow>
-                        <StyledTableCell align="left">Nome</StyledTableCell>
-                        <StyledTableCell align="left">Tipo de Pessoa</StyledTableCell>
-                        <StyledTableCell align="left">CPF/CNPJ</StyledTableCell>
-                        <StyledTableCell align="left">CEP</StyledTableCell>
-                        <StyledTableCell align="left">Endereço</StyledTableCell>
-                        <StyledTableCellAction align="center">Ações</StyledTableCellAction>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {props.data.map((dados) => (
-                        <StyledTableRow key={dados}>
-                            <StyledTableCell align="left">{dados.nome}</StyledTableCell>
-                            <StyledTableCell align="left">{dados.tipo_pessoa}</StyledTableCell>
-                            <StyledTableCell align="left">{dados.cpf_cnpj}</StyledTableCell>
-                            <StyledTableCell align="left">{dados.cep}</StyledTableCell>
-                            <StyledTableCell align="left">{dados.endereco}</StyledTableCell>
-                            <StyledTableCell align="center" className={classes.acoesIcons} >
-                                <AiFillEdit onClick={()=>openEdit(dados)} className={classes.icons} />
-                                <AiTwotoneDelete onClick={()=>delClient(dados)} className={classes.icons} />
-                            </StyledTableCell>
-                        </StyledTableRow>
-                    ))}
-                </TableBody>
-            </Table>
-        </TableContainer>
-    );
+return (
+    <TableContainer className={classes.mainTable} component={Paper}>
+        <Table className={classes.table} aria-label="customized table">
+            <TableHead>
+                <TableRow>
+                    <StyledTableCell align="left">Nome</StyledTableCell>
+                    <StyledTableCell align="left">Tipo de Pessoa</StyledTableCell>
+                    <StyledTableCell align="left">CPF/CNPJ</StyledTableCell>
+                    <StyledTableCell align="left">CEP</StyledTableCell>
+                    <StyledTableCell align="left">Endereço</StyledTableCell>
+                    <StyledTableCellAction align="center">Ações</StyledTableCellAction>
+                </TableRow>
+            </TableHead>
+            <TableBody>
+                {props.data.map((dados) => (
+                    <StyledTableRow key={dados}>
+                        <StyledTableCell align="left">{dados.nome}</StyledTableCell>
+                        <StyledTableCell align="left">{dados.tipo_pessoa}</StyledTableCell>
+                        <StyledTableCell align="left">{util.maskCpfCnpj(dados.cpf_cnpj)}</StyledTableCell>
+                        <StyledTableCell align="left">{util.maskCep(dados.cep)}</StyledTableCell>
+                        <StyledTableCell align="left">{dados.endereco}</StyledTableCell>
+                        <StyledTableCell align="center" className={classes.acoesIcons} >
+                            <AiFillEdit onClick={() => openEdit(dados)} className={classes.icons} />
+                            <AiTwotoneDelete onClick={() => delClient(dados)} className={classes.icons} />
+                        </StyledTableCell>
+                    </StyledTableRow>
+                ))}
+            </TableBody>
+        </Table>
+    </TableContainer>
+);
 }
 
 export default MainTable;

@@ -16,6 +16,8 @@
     "array": "^0.4.3",
     "date-fns": "^2.22.1",
     "html-react-parser": "^1.2.7",
+    "js-brasil": "^2.4.6",
+    "moment": "^2.29.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-grid": "^4.0.4",

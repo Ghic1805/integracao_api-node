@@ -43,7 +43,6 @@ const PropostaForm = (props) => {
     const [data, setData] = useState(new Date('2014-08-18T21:11:54'));
     const [data_validade, setData_validade] = useState(new Date('2014-08-18T21:11:54'));
     const [id_client, setId_client] = useState('');
-    const [client, setClient] = useState('');
     const [error, setError] = useState('');
     const [newProposta, setProposta] = useState(true)
     const location = useLocation()

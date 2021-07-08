@@ -11,6 +11,8 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
+import InputMask from "react-input-mask";
+import util from '../../util/util'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -69,10 +71,12 @@ const ClientForm = () => {
 
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
+        //e.preventDefault();
         setError('');
-        const json = newUser ? await api.addClient(nome, tipo_pessoa, cpf_cnpj, cep, endereco) :
-            await api.editClient(id, nome, tipo_pessoa, cpf_cnpj, cep, endereco)
+
+        const json = newUser ? await api.addClient(nome, tipo_pessoa, util.normalizeCPFAndCNPJ(cpf_cnpj), util.normalizeCep(cep), endereco) :
+            await api.editClient(id, nome, tipo_pessoa, util.normalizeCPFAndCNPJ(cpf_cnpj), util.normalizeCep(cep), endereco)
+
 
         if (json.error) {
             setError(json.error);
@@ -80,6 +84,40 @@ const ClientForm = () => {
             window.location.href = '/client';
         }
     };
+
+    const resetCpfCnpj = (value) => {
+        setTipo_pessoa(value)
+        setCpf_cnpj('')
+    }
+    
+    const inputs = () => {
+        if (tipo_pessoa === "Jurídica") {
+            return (
+                <InputMask
+                    mask="99.999.999/9999-99"
+                    value={cpf_cnpj}
+                    onChange={e => setCpf_cnpj(e.target.value)}
+                    disabled={false}
+                    maskChar={null}
+                >
+                    {() => <TextField id="standard-basic" label="CNPJ" />}
+                </InputMask >
+            )
+        } else if (tipo_pessoa === "Física") {
+            return (
+                <InputMask
+                    mask="999.999.999-99"
+                    value={cpf_cnpj}
+                    onChange={e => setCpf_cnpj(e.target.value)}
+                    disabled={false}
+                    maskChar={null}
+                >
+                    {() => <TextField id="standard-basic" label="CPF" />}
+                </InputMask >
+            )
+        }
+    };
+
     return (
         <Container>
             <Row>
@@ -95,10 +133,10 @@ const ClientForm = () => {
                         <Select
                             native
                             value={tipo_pessoa}
-                            onChange={e => setTipo_pessoa(e.target.value)}
+                            onChange={e => resetCpfCnpj(e.target.value)}
 
                         >
-                            <option>Selecionar</option>
+                            <option disabled>Selecionar</option>
                             <option value="Física">Física</option>
                             <option value="Jurídica">Jurídica</option>
                         </Select>
@@ -107,15 +145,23 @@ const ClientForm = () => {
             </Row>
             <Row>
                 <Col className={classes.root}>
-                    <TextField id="standard-basic" label="CEP" value={cep} onChange={e => setCep(e.target.value)} />
+                    <InputMask
+                        mask="99999-999"
+                        value={cep}
+                        onChange={e => setCep(e.target.value)}
+                        disabled={false}
+                        maskChar={null}
+                    >
+                        {() => <TextField id="standard-basic" label="Cep" />}
+                    </InputMask>
                 </Col>
+                <Col className={classes.root}>
+                    {inputs()}
+                </Col>                
+            </Row>
+            <Row>                
                 <Col className={classes.root}>
                     <TextField id="standard-basic" label="Endereço" value={endereco} onChange={e => setEndereco(e.target.value)} />
-                </Col>
-            </Row>
-            <Row>
-                <Col className={classes.root}>
-                    <TextField id="standard-basic" label="CNPJ/CPF" value={cpf_cnpj} onChange={e => setCpf_cnpj(e.target.value)} />
                 </Col>
             </Row>
             <Row >

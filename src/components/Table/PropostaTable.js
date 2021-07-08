@@ -11,7 +11,7 @@ import Paper from '@material-ui/core/Paper';
 import { AiFillEdit, AiTwotoneDelete } from "react-icons/ai";
 import { useHistory } from 'react-router-dom';
 import propostaApi from '../../helpers/propostaApi'
-
+import moment from 'moment';
 
 const StyledTableCell = withStyles((theme) => ({
     head: {
@@ -120,8 +120,8 @@ function PropostaTable(props) {
                         <StyledTableRow key={dados}>
                             <StyledTableCell align="left">{dados.codigo}</StyledTableCell>
                             <StyledTableCell align="left">{dados.assunto}</StyledTableCell>
-                            <StyledTableCell align="center">{dados.data}</StyledTableCell>
-                            <StyledTableCell align="center">{dados.data_validade}</StyledTableCell>
+                            <StyledTableCell align="center">{moment(dados.data).format('DD/MM/YYYY')}</StyledTableCell>
+                            <StyledTableCell align="center">{moment(dados.data_validade).format('DD/MM/YYYY')}</StyledTableCell>
                             <StyledTableCell align="center">{dados.nome}</StyledTableCell>
 
                             <StyledTableCell align="center" className={classes.acoesIcons} >
@@ -130,7 +130,6 @@ function PropostaTable(props) {
                             </StyledTableCell>
                         </StyledTableRow>
                     ))}
-                    {console.log(props.data)}
                 </TableBody>
             </Table>
         </TableContainer>
